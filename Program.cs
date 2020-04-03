@@ -49,7 +49,7 @@ namespace BorderArray
                     for (int i = 0; i < masBP.Length; i++)
                         Console.Write(masBP[i] + " ");
                     // демонстрация алгоритма поиска максимальной грани в строке
-                    algorithmnextnext(textInFile);
+                    AlgorithmMaxBorder(textInFile);
                 }
                 catch (Exception ex)
                 {
