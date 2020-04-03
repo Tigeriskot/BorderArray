@@ -90,7 +90,7 @@ namespace BorderArray
 
             // Алгоритм поиска максимальной грани
 
-            static void algorithmnextnext(string textInFile)
+            static void AlgorithmMaxBorder(string textInFile)
             {
                 int n = textInFile.Length;
                 int br = 0;
