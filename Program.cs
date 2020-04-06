@@ -11,23 +11,9 @@ namespace BorderArray
         static void Main(string[] args)
         {
             Console.WriteLine("************* Лабораторные работы по 2 лекции *************\n************* Реализация алгоритмов по работе с гранями *************\n");
-            // переменная в которую будут записываться данные из файла
-            String TextInFile;
-
-            // объявление массива граней префиксов
-            int[] MasBP;
-
-            // объявление массива граней суффиксов
-            int[] MasBS;
-
-            // объявление модифицированного массива граней префиксов
-            int[] MasBPM;
-
-            // объявление модифицированного массива граней суффиксов
-            int[] MasBSM;
-
+           
             // считываем исходный текст из файла в переменную TextInFile
-
+            
             Console.WriteLine("Введите название файла в котором будет происходить поиск: ");
                
                 
@@ -35,84 +21,14 @@ namespace BorderArray
             {   // чтение данных из файла
                 using (StreamReader sr = new StreamReader(Console.ReadLine()))
                 {
-                    TextInFile = sr.ReadToEnd();
+                    string TextInFile = sr.ReadToEnd();
                     Console.WriteLine("Текст файла: ");
                     Console.WriteLine(TextInFile);
-
-
-
-
-
+                    // метод, который демонстрирует работу алгоритмов
+                    Realization(TextInFile);
 
                 }
-                MasBP = new int[TextInFile.Length];
-                MasBS = new int[TextInFile.Length];
-                MasBPM = new int[TextInFile.Length];
-                MasBSM = new int[TextInFile.Length];
 
-                // демонстрация алгоритма по построению массива граней префиксов
-                PrefixBorderArray(TextInFile, MasBP);
-                // вывод полученного массива граней
-                Console.WriteLine("Массив граней префиксов: ");
-                for (int i = 0; i < MasBP.Length; i++)
-                    Console.Write(MasBP[i] + " ");
-                Console.WriteLine();
-
-                // демонстрация алгоритма по построению массива граней суффиксов
-                SuffixBorderArray(TextInFile, MasBS);
-                // вывод полученного массива граней
-                Console.WriteLine("Массив граней суффиксов: ");
-                for (int i = 0; i < MasBS.Length; i++)
-                    Console.Write(MasBS[i] + " ");
-                Console.WriteLine();
-
-                // демонстрация алгоритма по построению модифицированного массива граней префиксов
-                PrefixBorderArrayM(TextInFile, MasBP, MasBPM);
-                // вывод полученного массива граней
-                Console.WriteLine("Модифицированны массив граней префиксов, построенный с использованием исходного файла: ");
-                for (int i = 0; i < MasBPM.Length; i++)
-                    Console.Write(MasBPM[i] + " ");
-                Console.WriteLine();
-
-                // демонстрация алгоритма по построению модифицированного массива граней префиксов без использования исходного файла
-                BPToBPM(MasBP, MasBPM, TextInFile.Length);
-                // вывод полученного массива граней
-                Console.WriteLine("Модифицированны массив граней префиксов, построенный без использованием исходного файла: ");
-                for (int i = 0; i < MasBPM.Length; i++)
-                    Console.Write(MasBPM[i] + " ");
-                Console.WriteLine();
-
-                // демонстрация алгоритма по построению массива граней префиксов
-                BPMToBP(MasBPM, MasBP, TextInFile.Length);
-                // вывод полученного массива граней
-                Console.WriteLine("Массив граней префиксов, построенный из модифицированного: ");
-                for (int i = 0; i < MasBP.Length; i++)
-                    Console.Write(MasBP[i] + " ");
-                Console.WriteLine();
-
-                // демонстрация алгоритма по построению модифицированного массива граней суффиксов без использования исходного файла
-                BSToBSM(MasBS, MasBSM, TextInFile.Length);
-                                   
-                // вывод полученного массива граней
-                Console.WriteLine("Модифицированны массив граней суффиксов, построенный без использованием исходного файла: ");
-                for (int i = 0; i < MasBSM.Length; i++)
-                    Console.Write(MasBSM[i] + " ");
-                Console.WriteLine();
-
-                // демонстрация алгоритма по построению массива граней cуффиксов
-                BSMToBS(MasBSM, MasBS, TextInFile.Length);
-
-                // вывод полученного массива граней
-                Console.WriteLine("Массив граней суффиксов, построенный из модифицированного: ");
-                for (int i = 0; i < MasBS.Length; i++)
-                    Console.Write(MasBS[i] + " ");
-                Console.WriteLine();
-                
-
-
-
-                // демонстрация алгоритма поиска максимальной грани в строке
-                AlgorithmMaxBorder(TextInFile);
 
             }
             catch (Exception ex)
@@ -120,6 +36,15 @@ namespace BorderArray
 
                 Console.WriteLine("Файл не найден");
                 Console.WriteLine(ex.Message);
+                Console.WriteLine("Если хотите ввести текст вручную, напишите 1");
+
+                if (Console.ReadLine() == "1")
+                {
+                    string Text = Console.ReadLine();
+                    Realization(Text);
+                }
+
+
             }
 
 
@@ -131,6 +56,93 @@ namespace BorderArray
 
 
         }
+
+
+        // в этом методе происходит демонстрация работы всех алгоритмов из 2-ой лекции
+        static void Realization(string Text)
+        {   // объявление массива граней префиксов
+            int[] MasBP;
+
+            // объявление массива граней суффиксов
+            int[] MasBS;
+
+            // объявление модифицированного массива граней префиксов
+            int[] MasBPM;
+
+            // объявление модифицированного массива граней суффиксов
+            int[] MasBSM;
+
+            MasBP = new int[Text.Length];
+            MasBS = new int[Text.Length];
+            MasBPM = new int[Text.Length];
+            MasBSM = new int[Text.Length];
+
+            // демонстрация алгоритма по построению массива граней префиксов
+            PrefixBorderArray(Text, MasBP);
+            // вывод полученного массива граней
+            Console.WriteLine("Массив граней префиксов: ");
+            for (int i = 0; i < MasBP.Length; i++)
+                Console.Write(MasBP[i] + " ");
+            Console.WriteLine();
+
+            // демонстрация алгоритма по построению массива граней суффиксов
+            SuffixBorderArray(Text, MasBS);
+            // вывод полученного массива граней
+            Console.WriteLine("Массив граней суффиксов: ");
+            for (int i = 0; i < MasBS.Length; i++)
+                Console.Write(MasBS[i] + " ");
+            Console.WriteLine();
+
+            // демонстрация алгоритма по построению модифицированного массива граней префиксов
+            PrefixBorderArrayM(Text, MasBP, MasBPM);
+            // вывод полученного массива граней
+            Console.WriteLine("Модифицированны массив граней префиксов, построенный с использованием исходного файла: ");
+            for (int i = 0; i < MasBPM.Length; i++)
+                Console.Write(MasBPM[i] + " ");
+            Console.WriteLine();
+
+            // демонстрация алгоритма по построению модифицированного массива граней префиксов без использования исходного файла
+            BPToBPM(MasBP, MasBPM, Text.Length);
+            // вывод полученного массива граней
+            Console.WriteLine("Модифицированны массив граней префиксов, построенный без использованием исходного файла: ");
+            for (int i = 0; i < MasBPM.Length; i++)
+                Console.Write(MasBPM[i] + " ");
+            Console.WriteLine();
+
+            // демонстрация алгоритма по построению массива граней префиксов
+            BPMToBP(MasBPM, MasBP, Text.Length);
+            // вывод полученного массива граней
+            Console.WriteLine("Массив граней префиксов, построенный из модифицированного: ");
+            for (int i = 0; i < MasBP.Length; i++)
+                Console.Write(MasBP[i] + " ");
+            Console.WriteLine();
+
+            // демонстрация алгоритма по построению модифицированного массива граней суффиксов без использования исходного файла
+            BSToBSM(MasBS, MasBSM, Text.Length);
+
+            // вывод полученного массива граней
+            Console.WriteLine("Модифицированны массив граней суффиксов, построенный без использованием исходного файла: ");
+            for (int i = 0; i < MasBSM.Length; i++)
+                Console.Write(MasBSM[i] + " ");
+            Console.WriteLine();
+
+            // демонстрация алгоритма по построению массива граней cуффиксов
+            BSMToBS(MasBSM, MasBS, Text.Length);
+
+            // вывод полученного массива граней
+            Console.WriteLine("Массив граней суффиксов, построенный из модифицированного: ");
+            for (int i = 0; i < MasBS.Length; i++)
+                Console.Write(MasBS[i] + " ");
+            Console.WriteLine();
+
+
+            // демонстрация алгоритма поиска максимальной грани в строке
+            AlgorithmMaxBorder(Text);
+
+
+        }
+
+
 
         // алгоритм создания массива граней префиксов
         static void PrefixBorderArray(string TextInFile, int[] bp)
@@ -153,18 +165,18 @@ namespace BorderArray
 
         }
 
-        // алгоритм поиска максимальной грани
+        // алгоритм поиска максимальной грани(префикса)
         static void AlgorithmMaxBorder(string TextInFile)
         {
             int n = TextInFile.Length;
             int br = 0;
             int j;
-            for (int i = n - 1; i != 0; --i)
+            for (int i = n - 1; br == 0 && i > 0; --i)
             { // i – предполагаемая длина грани
                 j = 0;
                 while (j < i && TextInFile[j] == TextInFile[n - i + j])
                     ++j;
-                if (j == i && br <= i) br = i;
+                if (j == i) br = i;
 
             }
 
